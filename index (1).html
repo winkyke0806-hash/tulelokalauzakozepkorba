@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Túlélőkalauz a Középkorba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --gold-dark: #8b6914;
+    --parchment: #f5e6c8;
+    --parchment-dark: #e8d5a3;
+    --ink: #1a1208;
+    --dark-bg: #0d0a04;
+    --dark-mid: #1a1208;
+    --dark-surface: #231a0a;
+    --dark-border: #3d2e10;
+    --crimson: #8b1a1a;
+    --crimson-light: #c0392b;
+    --stone: #4a4035;
+    --text-body: #d4c5a0;
+    --text-muted: #8a7a5a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--dark-bg);
+    color: var(--text-body);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--dark-bg); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding: 4rem 2rem;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(201,168,76,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(139,26,26,0.08) 0%, transparent 60%),
+      var(--dark-bg);
+    overflow: hidden;
+  }
+
+  .hero::before, .hero::after {
+    content: '';
+    position: absolute;
+    left: 3rem; right: 3rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dark), var(--gold), var(--gold-dark), transparent);
+  }
+  .hero::before { top: 2.5rem; }
+  .hero::after  { bottom: 2.5rem; }
+
+  .hero-ornament {
+    font-size: 0.85rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-family: 'Cinzel', serif;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2.4rem, 7vw, 5.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--gold);
+    text-shadow: 0 0 60px rgba(201,168,76,0.3), 0 2px 4px rgba(0,0,0,0.8);
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.4s forwards;
+  }
+
+  .hero-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.85rem, 2vw, 1.1rem);
+    color: var(--parchment-dark);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.6s forwards;
+  }
+
+  .hero-divider {
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 2.5rem;
+    opacity: 0;
+    animation: fadeIn 1s 0.7s forwards;
+  }
+
+  .hero-intro {
+    max-width: 640px;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text-muted);
+    line-height: 1.9;
+    opacity: 0;
+    animation: fadeUp 1s 0.8s forwards;
+    margin-bottom: 3rem;
+  }
+
+  .hero-year {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(5rem, 14vw, 10rem);
+    font-weight: 700;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--gold-dark);
+    position: absolute;
+    bottom: 3.5rem;
+    right: 4%;
+    opacity: 0.12;
+    user-select: none;
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 1s 1s forwards;
+  }
+
+  .nav-link {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.55rem 1.3rem;
+    border: 1px solid var(--dark-border);
+    transition: all 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--gold);
+    border-color: var(--gold-dark);
+    background: rgba(201,168,76,0.05);
+  }
+
+  /* LAYOUT */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* CHAPTERS */
+  .chapter {
+    padding: 7rem 0 5rem;
+    border-bottom: 1px solid var(--dark-border);
+    position: relative;
+  }
+
+  .chapter-number {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .chapter-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.7rem, 4vw, 2.6rem);
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1.2;
+  }
+
+  .chapter-title-line {
+    display: block;
+    width: 50px;
+    height: 2px;
+    background: var(--gold-dark);
+    margin: 1.5rem 0 3rem;
+  }
+
+  /* TYPOGRAPHY */
+  .lead {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    border-left: 2px solid var(--gold-dark);
+    padding-left: 1.5rem;
+  }
+
+  p { margin-bottom: 1.4rem; color: var(--text-body); }
+
+  h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    margin: 2.5rem 0 1rem;
+    text-transform: uppercase;
+  }
+
+  strong { color: var(--parchment); font-weight: 600; }
+  em { color: var(--text-muted); }
+
+  /* GRIDS */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin: 2rem 0; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin: 2rem 0; }
+
+  @media (max-width: 650px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--dark-surface);
+    border: 1px solid var(--dark-border);
+    padding: 1.6rem;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 2px; height: 100%;
+    background: var(--gold-dark);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .card:hover { border-color: var(--gold-dark); transform: translateY(-2px); }
+  .card:hover::before { opacity: 1; }
+
+  .card-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+
+  .card p { font-size: 0.93rem; margin-bottom: 0; color: var(--text-muted); }
+  .card-icon { font-size: 1.8rem; margin-bottom: 0.7rem; display: block; }
+
+  /* TABLE */
+  .comparison { margin: 2.5rem 0; overflow-x: auto; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+
+  thead th {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 0.9rem 1.1rem;
+    border-bottom: 1px solid var(--gold-dark);
+    text-align: left;
+    background: var(--dark-surface);
+  }
+
+  tbody td {
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid var(--dark-border);
+    vertical-align: top;
+    color: var(--text-body);
+  }
+
+  tbody tr:hover td { background: rgba(201,168,76,0.03); }
+  .pro { color: #6ab04c; font-size: 0.88em; line-height: 1.8; display: block; }
+  .con { color: var(--crimson-light); font-size: 0.88em; line-height: 1.8; display: block; }
+
+  /* BOXES */
+  .warning-box {
+    background: rgba(139,26,26,0.1);
+    border: 1px solid rgba(139,26,26,0.35);
+    border-left: 3px solid var(--crimson-light);
+    padding: 1.3rem 1.6rem;
+    margin: 2rem 0;
+    font-size: 0.93rem;
+  }
+
+  .warning-box .box-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--crimson-light);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .info-box {
+    background: rgba(201,168,76,0.04);
+    border: 1px solid var(--dark-border);
+    border-left: 3px solid var(--gold-dark);
+    padding: 1.3rem 1.6rem;
+    margin: 2rem 0;
+    font-size: 0.93rem;
+  }
+
+  .info-box .box-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  /* TIPS LIST */
+  .tips-list { list-style: none; margin: 2rem 0; }
+
+  .tips-list li {
+    display: grid;
+    grid-template-columns: 2.8rem 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--dark-border);
+    font-size: 0.95rem;
+    color: var(--text-body);
+    transition: padding-left 0.2s;
+  }
+
+  .tips-list li:hover { padding-left: 0.3rem; }
+  .tips-list li:last-child { border-bottom: none; }
+
+  .tip-num {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    color: var(--gold-dark);
+    padding-top: 0.25rem;
+    text-align: right;
+    letter-spacing: 0.05em;
+  }
+
+  /* GLOSSARY */
+  .glossary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--dark-border);
+    margin: 2rem 0;
+    border: 1px solid var(--dark-border);
+  }
+
+  @media (max-width: 580px) { .glossary { grid-template-columns: 1fr; } }
+
+  .glossary-item {
+    background: var(--dark-surface);
+    padding: 1.2rem 1.4rem;
+    transition: background 0.2s;
+  }
+
+  .glossary-item:hover { background: rgba(201,168,76,0.04); }
+
+  .glossary-term {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+
+  .glossary-def { font-size: 0.87rem; color: var(--text-muted); font-style: italic; }
+
+  /* DROP CAP */
+  .drop-cap::first-letter {
+    font-family: 'Cinzel Decorative', serif;
+    float: left;
+    font-size: 4.2em;
+    line-height: 0.75;
+    padding-right: 0.1em;
+    padding-top: 0.06em;
+    color: var(--gold);
+    text-shadow: 0 0 25px rgba(201,168,76,0.35);
+  }
+
+  /* DIVIDER */
+  .ornamental-divider {
+    text-align: center;
+    color: var(--gold-dark);
+    font-size: 1.1rem;
+    letter-spacing: 0.5em;
+    margin: 3rem 0;
+    opacity: 0.55;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    border-top: 1px solid var(--dark-border);
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.15em;
+  }
+
+  footer span { color: var(--gold-dark); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* TOP NAV */
+  .top-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(13,10,4,0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--dark-border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 52px;
+    transform: translateY(-100%);
+    transition: transform 0.4s ease;
+  }
+
+  .top-nav.visible { transform: translateY(0); }
+
+  .top-nav-brand {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.72rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+  }
+
+  .top-nav-links { display: flex; gap: 1.8rem; list-style: none; }
+
+  .top-nav-links a {
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .top-nav-links a:hover { color: var(--gold); }
+
+  @media (max-width: 600px) { .top-nav-links { display: none; } }
+
+  /* CONSEQUENCE BLOCKS */
+  .consequence-block {
+    background: var(--dark-surface);
+    border: 1px solid var(--dark-border);
+    margin: 0.8rem 0;
+    overflow: hidden;
+  }
+
+  .consequence-rule {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.4rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+
+  .consequence-rule:hover { background: rgba(201,168,76,0.04); }
+
+  .consequence-rule-text {
+    font-family: 'EB Garamond', serif;
+    font-size: 1rem;
+    color: var(--text-body);
+    flex: 1;
+    font-style: italic;
+  }
+
+  .consequence-toggle {
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    white-space: nowrap;
+  }
+
+  .consequence-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    border-top: 1px solid transparent;
+  }
+
+  .consequence-body.open {
+    max-height: 200px;
+    border-top-color: var(--dark-border);
+  }
+
+  .consequence-body p {
+    padding: 1rem 1.4rem;
+    font-size: 0.93rem;
+    color: var(--crimson-light);
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* ILLUSTRATION SVG */
+  .illustration { display: block; margin: 2.5rem auto; opacity: 0.8; }
+
+  /* PROGRESS BAR */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+    width: 0%;
+    z-index: 200;
+    transition: width 0.08s linear;
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav class="top-nav" id="topNav">
+  <a href="#hero" class="top-nav-brand">Túlélőkalauz ✦ 1000–1400</a>
+  <ul class="top-nav-links">
+    <li><a href="#oltoz">Öltözet</a></li>
+    <li><a href="#etel">Étel &amp; Ital</a></li>
+    <li><a href="#veszelyek">Veszélyek</a></li>
+    <li><a href="#hol">Hol éljünk</a></li>
+    <li><a href="#tippek">Tippek</a></li>
+    <li><a href="#szotar">Szótár</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-ornament">Kézikönyv ✦ Az időutazó számára ✦ Kr. u. 1000–1400</div>
+
+  <h1 class="hero-title">Túlélőkalauz<br>a Középkorba</h1>
+  <p class="hero-subtitle">A 21. századi ember útmutatója</p>
+  <div class="hero-divider"></div>
+
+  <p class="hero-intro">
+    Tehát megtörtént. Véletlenül, akaratlanul vagy valamely furcsa véletlen folytán
+    a középkorban találod magad. Ne ess kétségbe. Ez a kézikönyv mindent tartalmaz,
+    amire szükséged lesz — az öltözettől a túlélési taktikákig.
+    Olvasd el figyelmesen. Az életed múlhat rajta.
+  </p>
+
+  <div class="nav-links">
+    <a href="#oltoz" class="nav-link">Öltözet &amp; Illem</a>
+    <a href="#etel" class="nav-link">Étel &amp; Ital</a>
+    <a href="#veszelyek" class="nav-link">Veszélyek</a>
+    <a href="#hol" class="nav-link">Élhető helyek</a>
+    <a href="#tippek" class="nav-link">Tippek</a>
+    <a href="#szotar" class="nav-link">Szótár</a>
+  </div>
+
+  <div class="hero-year">1350</div>
+</section>
+
+<!-- ══ I. FEJEZET ════════════════════════════════════════ -->
+<section class="chapter" id="oltoz">
+  <div class="container">
+    <span class="chapter-number reveal">I. fejezet</span>
+    <h2 class="chapter-title reveal">Hogyan öltözz<br>és viselkedj?</h2>
+    <span class="chapter-title-line reveal"></span>
+
+    <p class="lead reveal">
+      Az első benyomás a középkorban életre-halálra szóló kérdés. Téves öltözet,
+      egyetlen helytelen mozdulat — és máris gyanús jövevénynek, esetleg eretneknek bélyegezhetnek.
+    </p>
+
+    <!-- SVG Illustration: two figures -->
+    <svg class="illustration reveal" viewBox="0 0 340 240" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width:360px">
+      <defs>
+        <linearGradient id="peasantG" x1="90" y1="60" x2="90" y2="200" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#8b6914" stop-opacity="0.6"/>
+          <stop offset="1" stop-color="#5a4208" stop-opacity="0.2"/>
+        </linearGradient>
+        <linearGradient id="nobleG" x1="250" y1="55" x2="250" y2="205" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#8b1a1a" stop-opacity="0.55"/>
+          <stop offset="1" stop-color="#3d0d0d" stop-opacity="0.15"/>
+        </linearGradient>
+      </defs>
+      <!-- centre divider -->
+      <line x1="170" y1="10" x2="170" y2="230" stroke="#3d2e10" stroke-width="0.8" stroke-dasharray="5,5"/>
+      <!-- PEASANT -->
+      <circle cx="90" cy="44" r="20" stroke="#c9a84c" stroke-width="1.2" fill="rgba(201,168,76,0.06)"/>
+      <path d="M70 64 Q90 78 110 64 L122 185 Q90 198 58 185 Z" fill="url(#peasantG)" stroke="#8b6914" stroke-width="1"/>
+      <line x1="60" y1="115" x2="36" y2="155" stroke="#8b6914" stroke-width="1.2"/>
+      <line x1="120" y1="115" x2="144" y2="155" stroke="#8b6914" stroke-width="1.2"/>
+      <ellipse cx="90" cy="185" rx="22" ry="7" fill="#5a4208" opacity="0.3"/>
+      <text x="90" y="218" text-anchor="middle" fill="#8a7a5a" font-family="EB Garamond, serif" font-size="13" font-style="italic">Paraszt</text>
+      <!-- NOBLE -->
+      <circle cx="250" cy="40" r="20" stroke="#c9a84c" stroke-width="1.2" fill="rgba(201,168,76,0.06)"/>
+      <path d="M228 60 Q250 76 272 60 L288 188 Q250 205 212 188 Z" fill="url(#nobleG)" stroke="#8b1a1a" stroke-width="1"/>
+      <!-- belt/clasp detail -->
+      <rect x="238" y="100" width="24" height="6" rx="2" fill="#c9a84c" opacity="0.35"/>
+      <!-- fur trim at shoulders -->
+      <path d="M228 60 Q250 50 272 60" stroke="#c9a84c" stroke-width="2" fill="none" opacity="0.4"/>
+      <line x1="212" y1="118" x2="188" y2="158" stroke="#8b1a1a" stroke-width="1.2"/>
+      <line x1="288" y1="118" x2="312" y2="158" stroke="#8b1a1a" stroke-width="1.2"/>
+      <ellipse cx="250" cy="190" rx="24" ry="7" fill="#3d0d0d" opacity="0.3"/>
+      <text x="250" y="218" text-anchor="middle" fill="#8a7a5a" font-family="EB Garamond, serif" font-size="13" font-style="italic">Nemes</text>
+      <!-- decorative top label -->
+      <text x="170" y="16" text-anchor="middle" fill="#8b6914" font-family="Cinzel, serif" font-size="9" letter-spacing="4">TÁRSADALMI RANG</text>
+    </svg>
+
+    <h3 class="reveal">Mit vegyél fel?</h3>
+    <p class="drop-cap reveal">
+      A ruha a státuszod legfontosabb külső jelzője. A <strong>parasztok</strong> egyszerű,
+      gyapjú- vagy lenvászonból készült tunikát, köpenyt és bocskort hordtak.
+      A <strong>nemesek</strong> drága kelméket, élénk színeket és szőrmeprémes szegélyeket viseltek.
+      Idegen városban tartózkodva öltözz a helyiekhez hasonlóan: tűnj el a tömegben.
+    </p>
+    <p class="reveal">
+      Kerüld a feltűnő ékszereket és a rikító színeket, hacsak nem vagy valóban nemes és rendelkezel
+      a szükséges kísérettel. A <strong>kék</strong> és a <strong>bíbor</strong> szín viseletéhez
+      a legtöbb helyen rangra volt szükség — a helytelen öltözet társadalmi visszaesést,
+      de akár büntetést is vonhatott maga után.
+    </p>
+
+    <div class="grid-2 reveal">
+      <div class="card">
+        <span class="card-icon">🪡</span>
+        <div class="card-title">Paraszt öltözék</div>
+        <p>Barna, szürke vagy természetes színű gyapjútunika, vastag harisnya, egyszerű köpeny. Alacsony, szíjas saru vagy bocskor ajánlott.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">⚜️</span>
+        <div class="card-title">Nemes öltözék</div>
+        <p>Selyem vagy finom gyapjú tunika, hermelindíszes köpeny, színes harisnya, puha bőrcsizma — de csak ha valóban nemes vagy, és van kíséreted!</p>
+      </div>
+    </div>
+
+    <h3 class="reveal">Hogyan szólíts meg egy nemest?</h3>
+    <p class="reveal">
+      A szólításnak pontosnak és alázatosnak kell lennie. Egy lovagot <strong>„Uram"</strong> vagy
+      <strong>„Lovag úr"</strong> megszólítás illet meg, egy bárót <strong>„Méltóságos uram"</strong>,
+      egy püspököt pedig <strong>„Kegyelmes uram"</strong> formában kell megközelíteni.
+      Soha ne fordulj előbb szóba egy nemessel — várd meg, hogy ő tegyen így.
+      Hajtsd le a fejed, és ne nézz a szemébe, amíg ő nem engedi meg.
+    </p>
+
+    <div class="info-box reveal">
+      <span class="box-label">✦ Fontos szabály</span>
+      Nemesi személlyel való találkozáskor mindig hajolj meg és tedd keresztbe a karod a mellkasod előtt.
+      Ha nő vagy, térdeplési mozdulatot — bókot — végezz. A mosolygás bizalmatlanságot kelthet,
+      ha senki nem ismer.
+    </div>
+
+    <h3 class="reveal">Hogyan viselkedj egy templomban?</h3>
+    <p class="reveal">
+      A templomban való viselkedés nem csupán illemkérdés — a helytelen magatartás istenkáromlás vádjához,
+      esetleg inkvizíciós eljáráshoz vezethet. Lépj be csendesen, hajtsd meg a fejed az oltár felé,
+      és keresztelj magadra szenteltvízzel. Térdeplés közben ne pislogj sokat, ne nézz körbe,
+      és semmiképpen ne szólj hangosan imádság közben.
+    </p>
+
+    <div class="warning-box reveal">
+      <span class="box-label">⚠ Figyelmeztetés</span>
+      Ha nem tudod a mise szövegét latinul, csak mozgasd a szád, mintha imádkoznál.
+      Az egyházi szertartások megsértése vagy a latin szövegek hibás visszamondása
+      eretnek-gyanút kelthet.
+    </div>
+  </div>
+</section>
+
+<!-- ══ II. FEJEZET ═══════════════════════════════════════ -->
+<section class="chapter" id="etel">
+  <div class="container">
+    <span class="chapter-number reveal">II. fejezet</span>
+    <h2 class="chapter-title reveal">Mit egyél<br>és igyál?</h2>
+    <span class="chapter-title-line reveal"></span>
+
+    <p class="lead reveal">
+      A középkori étkezés a társadalmi ranglétra tükörképe.
+      Amit eszel, elárulja, ki vagy — és rossz esetben azt is, hogy kicsoda nem vagy.
+    </p>
+
+    <div class="grid-2 reveal">
+      <div class="card">
+        <span class="card-icon">🌾</span>
+        <div class="card-title">A paraszt étrendje</div>
+        <p>Fekete kenyér, zabkása, lencse, borsó, hagyma, gyökérzöldségek, néha tojás vagy szalonna. Húst főleg ünnepnapokon ettek — de az is általában sózott vagy füstölt volt.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🍖</span>
+        <div class="card-title">A nemes asztala</div>
+        <p>Vad, szárnyasok, hal, fűszeres mártások, fehér kenyér, édes sütemények, bor és mézsör (méhser). A banketteken 10–15 fogás sem volt ritka. A fűszerek a gazdagság jelei voltak.</p>
+      </div>
+    </div>
+
+    <h3 class="reveal">Miért volt fontosabb a sör, mint a víz?</h3>
+    <p class="drop-cap reveal">
+      A 21. századi utazó legelső hibája: vizet iszik. A középkori falvak és városok vízforrásai
+      — kutakba, patakokba szivárogva — szennyezett, betegségekkel teli folyadékot tartalmaztak.
+      A kolera, a tífusz és a dizentéria rendszeresen tizedelte a vizet ivókat.
+    </p>
+    <p class="reveal">
+      A <strong>sör</strong> — és kisebb mértékben a <strong>bor</strong> — a főzési folyamat során
+      hőkezelésen ment át, ami elpusztította a legtöbb kórokozót. Gyenge alkoholtartalma miatt
+      gyerekek is fogyaszthatták. Az ital nem részegítő szórakozás volt, hanem életszükséglet.
+      A kolostorokban a szerzetesek naponta akár négy liter <em>cervisiát</em> (egyházi sört) fogyasztottak —
+      böjti napokon is, hiszen az „folyékony kenyérnek" számított.
+    </p>
+
+    <!-- SVG: goblet -->
+    <svg class="illustration reveal" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width:180px">
+      <!-- goblet shape -->
+      <path d="M70 40 Q60 80 55 100 Q50 120 75 135 L65 175 L45 185 L155 185 L135 175 L125 135 Q150 120 145 100 Q140 80 130 40 Z" fill="rgba(201,168,76,0.08)" stroke="#c9a84c" stroke-width="1.2"/>
+      <!-- liquid -->
+      <path d="M72 60 Q100 55 128 60 L135 100 Q150 120 125 135 Q100 142 75 135 Q50 120 65 100 Z" fill="rgba(201,168,76,0.15)" stroke="none"/>
+      <!-- rim -->
+      <path d="M70 40 Q100 34 130 40" stroke="#c9a84c" stroke-width="1.2" fill="none"/>
+      <!-- base -->
+      <ellipse cx="100" cy="185" rx="55" ry="9" fill="rgba(201,168,76,0.1)" stroke="#c9a84c" stroke-width="1"/>
+      <!-- decorative lines on cup -->
+      <path d="M75 90 Q100 86 125 90" stroke="#8b6914" stroke-width="0.6" opacity="0.7"/>
+      <path d="M73 108 Q100 104 127 108" stroke="#8b6914" stroke-width="0.6" opacity="0.5"/>
+      <text x="100" y="210" text-anchor="middle" fill="#8a7a5a" font-family="EB Garamond, serif" font-size="12" font-style="italic">Cervisia</text>
+    </svg>
+
+    <div class="info-box reveal">
+      <span class="box-label">✦ Praktikus tanács</span>
+      Ha valóban szomjas vagy és nincs sör: keress kolostort. A szerzetesek szinte mindig rendelkeztek
+      frissebb kútból vett vízzel — és az alamizsnálkodás jegyében sokszor adtak is belőle idegeneknek.
+    </div>
+  </div>
+</section>
+
+<!-- ══ III. FEJEZET ══════════════════════════════════════ -->
+<section class="chapter" id="veszelyek">
+  <div class="container">
+    <span class="chapter-number reveal">III. fejezet</span>
+    <h2 class="chapter-title reveal">Milyen veszélyek<br>fenyegetnek?</h2>
+    <span class="chapter-title-line reveal"></span>
+
+    <p class="lead reveal">
+      A középkor nem az idilli lovagok és várak világa csupán.
+      A halál az élet közvetlen szomszédja volt — és ismerte az összes bejárást.
+    </p>
+
+    <div class="grid-2 reveal">
+      <div class="card">
+        <span class="card-icon">🦠</span>
+        <div class="card-title">Járványok</div>
+        <p>A pestis (1347–53 között Európa népességének kb. egyharmadát ölte meg), himlő, kolera és lepra folyamatosan jelen volt. Sokan Isten büntetésének tartották — orvosi kezelés alig létezett.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">⚔️</span>
+        <div class="card-title">Háborúk</div>
+        <p>Kisebb-nagyobb konfliktusok szinte folyamatosan dúltak Európában. A Százéves háború (1337–1453), a Keresztes hadjáratok és az állandó feudális csatározások miatt az utazás komoly kockázatot jelentett.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🗡️</span>
+        <div class="card-title">Rablók és útonállók</div>
+        <p>Az erdőkben és az utak mentén bandák tanyáztak. A szervezett rendőrség ismeretlen fogalom volt. Egyedül utazni súlyos kockázatot jelent.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🌾</span>
+        <div class="card-title">Éhínség</div>
+        <p>A rossz termés, a háborús pusztítás vagy a hosszú tél rendszeresen éhínséget okozott. Az 1315–22-es Nagy Éhínség egész Európát sújtotta. Egyetlen tél megtizedelhetett egy falut.</p>
+      </div>
+    </div>
+
+    <h3 class="reveal">Mit tehetsz ezek ellen?</h3>
+
+    <ul class="tips-list reveal">
+      <li>
+        <span class="tip-num">01</span>
+        <span><strong>Járvány esetén:</strong> Ne maradj városban, ha piros foltokat, duzzanatokat vagy tömeges halált látsz. A fertőzött területet kerüld el legalább öt mérföld távolságból. A pestissel szemben nincs orvosság — az egyetlen védekezés a menekülés.</span>
+      </li>
+      <li>
+        <span class="tip-num">02</span>
+        <span><strong>Háborús területen:</strong> Öltözz semlegesen, ne viseld senki színeit. Csatlakozz egy zarándokcsoporthoz — a zarándokokat elvben nemzetközi megállapodások védték.</span>
+      </li>
+      <li>
+        <span class="tip-num">03</span>
+        <span><strong>Rablók ellen:</strong> Sohase utazz egyedül és éjszaka. Fogadj csatlósokat, vagy csatlakozz kereskedők karavánjához. Ha mégis megtámadnak: add oda a pénzedet. Az életed fontosabb.</span>
+      </li>
+      <li>
+        <span class="tip-num">04</span>
+        <span><strong>Éhínség idején:</strong> Keress kolostort vagy egyházi menedéket — a szerzetesek kötelessége volt az éhezők etetése. A városok falain belül általában jobb volt az ellátás, mint vidéken.</span>
+      </li>
+    </ul>
+
+    <div class="warning-box reveal">
+      <span class="box-label">⚠ Különleges veszély — Az Inkvizíció</span>
+      A 13. századtól az egyházi inkvizíció működött. Ha bármilyen furcsa dolgot mondasz —
+      például olyasmit, amit 2026-ban természetesnek tartanál a tudományról, a Napról
+      vagy az emberi testről —, azt eretnekségnek minősíthetik.
+      <strong>Ne vitatkozz semmilyen egyházi tanítással.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ══ IV. FEJEZET ════════════════════════════════════════ -->
+<section class="chapter" id="hol">
+  <div class="container">
+    <span class="chapter-number reveal">IV. fejezet</span>
+    <h2 class="chapter-title reveal">Hol érdemes élni?</h2>
+    <span class="chapter-title-line reveal"></span>
+
+    <p class="lead reveal">
+      Minden letelepedési hely más-más előnyöket és hátrányokat rejt magában.
+      A döntés körülményeidtől, képességeidtől és nem utolsósorban a szerencsédtől függ.
+    </p>
+
+    <!-- SVG: castle -->
+    <svg class="illustration reveal" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width:340px">
+      <!-- ground -->
+      <rect x="0" y="155" width="320" height="25" fill="rgba(61,46,16,0.3)"/>
+      <!-- main tower left -->
+      <rect x="30" y="80" width="50" height="80" fill="rgba(201,168,76,0.08)" stroke="#8b6914" stroke-width="1"/>
+      <rect x="30" y="68" width="12" height="20" fill="rgba(201,168,76,0.12)" stroke="#8b6914" stroke-width="0.8"/>
+      <rect x="50" y="68" width="12" height="20" fill="rgba(201,168,76,0.12)" stroke="#8b6914" stroke-width="0.8"/>
+      <rect x="68" y="68" width="12" height="20" fill="rgba(201,168,76,0.12)" stroke="#8b6914" stroke-width="0.8"/>
+      <!-- main tower right -->
+      <rect x="240" y="80" width="50" height="80" fill="rgba(201,168,76,0.08)" stroke="#8b6914" stroke-width="1"/>
+      <rect x="240" y="68" width="12" height="20" fill="rgba(201,168,76,0.12)" stroke="#8b6914" stroke-width="0.8"/>
+      <rect x="258" y="68" width="12" height="20" fill="rgba(201,168,76,0.12)" stroke="#8b6914" stroke-width="0.8"/>
+      <rect x="276" y="68" width="12" height="20" fill="rgba(201,168,76,0.12)" stroke="#8b6914" stroke-width="0.8"/>
+      <!-- wall -->
+      <rect x="80" y="110" width="160" height="50" fill="rgba(201,168,76,0.06)" stroke="#8b6914" stroke-width="1"/>
+      <!-- gate -->
+      <rect x="140" y="120" width="40" height="40" rx="2" fill="rgba(13,10,4,0.8)" stroke="#8b6914" stroke-width="1"/>
+      <path d="M140 138 Q160 125 180 138" fill="rgba(13,10,4,0.8)" stroke="#8b6914" stroke-width="0.8"/>
+      <!-- centre keep -->
+      <rect x="110" y="55" width="100" height="105" fill="rgba(139,26,26,0.08)" stroke="#8b1a1a" stroke-width="1"/>
+      <rect x="110" y="40" width="22" height="25" fill="rgba(139,26,26,0.1)" stroke="#8b1a1a" stroke-width="0.8"/>
+      <rect x="148" y="40" width="22" height="25" fill="rgba(139,26,26,0.1)" stroke="#8b1a1a" stroke-width="0.8"/>
+      <rect x="186" y="40" width="22" height="25" fill="rgba(139,26,26,0.1)" stroke="#8b1a1a" stroke-width="0.8"/>
+      <!-- windows -->
+      <rect x="148" y="75" width="22" height="28" rx="2" fill="rgba(201,168,76,0.07)" stroke="#8b6914" stroke-width="0.7"/>
+      <!-- flag -->
+      <line x1="160" y1="10" x2="160" y2="42" stroke="#c9a84c" stroke-width="1"/>
+      <path d="M160 12 L182 20 L160 28 Z" fill="#8b1a1a" opacity="0.6"/>
+      <text x="160" y="175" text-anchor="middle" fill="#8a7a5a" font-family="EB Garamond, serif" font-size="12" font-style="italic">Középkori vár</text>
+    </svg>
+
+    <div class="comparison reveal">
+      <table>
+        <thead>
+          <tr>
+            <th>Helyszín</th>
+            <th>Előnyök</th>
+            <th>Hátrányok</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>🏰 Vár</strong></td>
+            <td>
+              <span class="pro">+ Biztonság és védelem háborúban</span>
+              <span class="pro">+ Nemesi kapcsolatok, befolyás</span>
+              <span class="pro">+ Rendszeres ellátás</span>
+            </td>
+            <td>
+              <span class="con">– Ostrom esetén csapda</span>
+              <span class="con">– Szoros hierarchia és szabályok</span>
+              <span class="con">– Nehéz bekerülni rang nélkül</span>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>🌾 Falu</strong></td>
+            <td>
+              <span class="pro">+ Közösség, kölcsönös segítségnyújtás</span>
+              <span class="pro">+ Élelmiszer-önellátás lehetősége</span>
+              <span class="pro">+ Viszonylag anonim</span>
+            </td>
+            <td>
+              <span class="con">– Jobbágykötelezettségek a földesúrnak</span>
+              <span class="con">– Éhínség és járvány esetén kiszolgáltatott</span>
+              <span class="con">– Útban lévők könnyen gyanúsak</span>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>⛪ Kolostor</strong></td>
+            <td>
+              <span class="pro">+ Biztonság, étel, gyógyítás</span>
+              <span class="pro">+ Könyvtár, tudás, latin tanulása</span>
+              <span class="pro">+ Inkvizíció általában tiszteli</span>
+            </td>
+            <td>
+              <span class="con">– Szerzetesi fogadalom szükséges</span>
+              <span class="con">– Kötött napirend, szigorú rend</span>
+              <span class="con">– Kevés személyes szabadság</span>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>🏘️ Város</strong></td>
+            <td>
+              <span class="pro">+ Kereskedelem, megélhetési lehetőségek</span>
+              <span class="pro">+ Névtelenség a tömegben</span>
+              <span class="pro">+ Céhek védelmi rendszere</span>
+            </td>
+            <td>
+              <span class="con">– Zsúfoltság, fokozott járványkockázat</span>
+              <span class="con">– Tűzveszély (főleg faépületeknél)</span>
+              <span class="con">– Drágább megélhetés</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="reveal">
+      <strong>Javaslatunk:</strong> Ha újonnan érkeztél és nem ismersz senkit, legjobb egy
+      <strong>közepes méretű városba</strong> igyekezni, ahol céhes mesterként vagy
+      kereskedő-segédként el tudsz helyezkedni anélkül, hogy túl sok kérdést tennének fel
+      az előéletedről. A névtelenség a legjobb védelmed.
+    </p>
+  </div>
+</section>
+
+<!-- ══ V. FEJEZET ════════════════════════════════════════ -->
+<section class="chapter" id="tippek">
+  <div class="container">
+    <span class="chapter-number reveal">V. fejezet</span>
+    <h2 class="chapter-title reveal">Túlélési tippek<br>röviden</h2>
+    <span class="chapter-title-line reveal"></span>
+
+    <p class="lead reveal">
+      Az összefoglalás, amelyet könyv nélkül is meg kell tanulnod.
+      Ha ezeket betartod, jó esélyed van arra, hogy megérd a 21. századba való visszatérést.
+    </p>
+
+    <ul class="tips-list reveal">
+      <li><span class="tip-num">I</span><span><strong>Ne sérts meg egy lovagot</strong> — sem szóval, sem tettel. A becsület kérdése párbajhoz vezet, amelyből a 21. századi ember nagyon ritkán kerül ki győztesen.</span></li>
+      <li><span class="tip-num">II</span><span><strong>Ne vitatkozz az egyházzal.</strong> Amit igazságnak hiszel a bolygókról, az emberi testről vagy az orvostudományról — tartsd magadban. Az eretnek máglyán végzi.</span></li>
+      <li><span class="tip-num">III</span><span><strong>Tanulj meg lovagolni</strong> és lóval bánni. A ló a középkor autója, vonata és taxija egyszerre. Lóval sokkal kevésbé gyanús az utazó.</span></li>
+      <li><span class="tip-num">IV</span><span><strong>Kerüld a pestisfertőzött városokat.</strong> Ha az útszélen halmokban fekszenek a holttestek — fordulj vissza azonnal.</span></li>
+      <li><span class="tip-num">V</span><span><strong>Tanulj meg latinul</strong> legalább alapfokon. A latin az egyház, az igazságszolgáltatás és a tudomány nyelve. Aki latinul tud, azt tanultnak tartják és jobban kezelik.</span></li>
+      <li><span class="tip-num">VI</span><span><strong>Sohane utazz egyedül</strong> — különösen erdős vidéken vagy éjszaka. Csatlakozz kereskedőkhöz, zarándokokhoz vagy más utazókhoz.</span></li>
+      <li><span class="tip-num">VII</span><span><strong>Mindig legyen nálad néhány ezüstérme.</strong> A pénz mindenütt megnyit ajtókat — még a középkorban is.</span></li>
+      <li><span class="tip-num">VIII</span><span><strong>Ne igyál ismeretlen forrásból eredő vizet.</strong> Ragaszkodj a sörhöz és a borhoz, amíg az utat nem ismered.</span></li>
+      <li><span class="tip-num">IX</span><span><strong>Tartsd tisztán a sebeidet</strong> — a középkori orvosok vérlebocsátással és imádsággal kezeltek. Bármilyen seb elfertőzhet és halálos lehet.</span></li>
+      <li><span class="tip-num">X</span><span><strong>Mondd, hogy zarándok vagy.</strong> A zarándokok szabadon mozoghattak, szállást és ételt kaptak, és általában védelmet élveztek az utakon.</span></li>
+    </ul>
+
+    <div class="ornamental-divider reveal">✦ ✦ ✦</div>
+
+    <h3 class="reveal">Ha megszeged ezeket a szabályokat…</h3>
+    <p class="reveal" style="margin-bottom:1.5rem; color: var(--text-muted); font-style:italic;">Kattints egy szabályra és nézd meg, mi vár rád, ha figyelmen kívül hagyod.</p>
+
+    <div class="reveal">
+      <div class="consequence-block">
+        <div class="consequence-rule" onclick="toggleConsequence(this)">
+          <span class="consequence-rule-text">„Megsértettél egy lovagot nyilvánosan."</span>
+          <span class="consequence-toggle">Mi történik? ▾</span>
+        </div>
+        <div class="consequence-body">
+          <p>Párbajra hívnak. Mivel te valószínűleg soha nem forgattál kardot, míg az illető gyermekkorától ezt tanulja — a vége előre borítékolható. Egy előkelőbb lovagnál a sértés akár azonnali, helyszíni büntetést vonhat maga után. Jó napot kívánunk.</p>
+        </div>
+      </div>
+      <div class="consequence-block">
+        <div class="consequence-rule" onclick="toggleConsequence(this)">
+          <span class="consequence-rule-text">„Azt mondtad, hogy a Föld kering a Nap körül."</span>
+          <span class="consequence-toggle">Mi történik? ▾</span>
+        </div>
+        <div class="consequence-body">
+          <p>Eretneknek nyilvánítanak. Az inkvizítor átveszi az ügyet. Következhet börtön, kínvallatás, majd máglyán való nyilvános megégetés — mindez ünnepi körülmények között, a helyi polgárság üdvrivalgása kíséretében.</p>
+        </div>
+      </div>
+      <div class="consequence-block">
+        <div class="consequence-rule" onclick="toggleConsequence(this)">
+          <span class="consequence-rule-text">„Egyedül utaztál az erdőn éjszaka."</span>
+          <span class="consequence-toggle">Mi történik? ▾</span>
+        </div>
+        <div class="consequence-body">
+          <p>A legjobb esetben rablók fosztanak ki és meztelenül hagynak az erdő mélyén. A legrosszabb esetben ugyanaz — csak te már nem leszel jelen annak megállapításához, hogy mi maradt utánad.</p>
+        </div>
+      </div>
+      <div class="consequence-block">
+        <div class="consequence-rule" onclick="toggleConsequence(this)">
+          <span class="consequence-rule-text">„Bementél egy fertőzöttnek látszó városba."</span>
+          <span class="consequence-toggle">Mi történik? ▾</span>
+        </div>
+        <div class="consequence-body">
+          <p>Öt-tizenöt nap múlva lázad lesz, majd megjelennek a fekete duzzanatok a hónodban és a nyakadon. A „kezelés" vérbocsátásból és imádságból áll. A középkori medicina meglepően hatástalan a bubópestis ellen. Jó utat.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SZÓTÁR ════════════════════════════════════════════ -->
+<section class="chapter" id="szotar">
+  <div class="container">
+    <span class="chapter-number reveal">Melléklet</span>
+    <h2 class="chapter-title reveal">Középkori szótár</h2>
+    <span class="chapter-title-line reveal"></span>
+
+    <p class="lead reveal">
+      Tíz kulcsfogalom, amelyeket egy 21. századi utazónak ismernie kell —
+      hogy ne csak értse a körülötte zajló világot, hanem kommunikálni is tudjon.
+    </p>
+
+    <div class="glossary reveal">
+      <div class="glossary-item">
+        <div class="glossary-term">Feudalizmus</div>
+        <div class="glossary-def">A középkor társadalmi és politikai rendszere, amelyben a király, a nemesek és a jobbágyok egymástól függő hierarchiát alkottak. A földbirtok a hatalom alapja.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Jobbágy</div>
+        <div class="glossary-def">A feudális rendszer legalsó szabad rétege, aki a nemesnek járó munkaszolgálattal és adókkal tartozott, de nem volt rabszolga.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Inkvizíció</div>
+        <div class="glossary-def">Az egyház által létrehozott bírósági intézmény az eretnekség felderítésére és megbüntetésére. A 13. sz.-tól működött szervezett formában.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Céh</div>
+        <div class="glossary-def">Azonos mesterséget űző iparosok vagy kereskedők szövetsége, amely szabályozta az árakat, a minőséget és a mesterré válás útját.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Pestis</div>
+        <div class="glossary-def">Yersinia pestis baktérium által okozott fertőző betegség, bolhák terjesztették patkányokon keresztül. Az 1347–53-as járvány Fekete Halál névvel ismert.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Zarándok</div>
+        <div class="glossary-def">Vallásos célból utazó személy, aki egy szent helyre tartott (Jeruzsálem, Róma, Santiago de Compostela). A zarándokokat szokásjog védte az utakon.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Lovag</div>
+        <div class="glossary-def">Páncélos, lovas katona, a feudális hierarchia katonai arisztokráciája. Hosszú kiképzésen esett át: apród → fegyverhordozó → lovag.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Scriptorium</div>
+        <div class="glossary-def">Kolostorokban fenntartott műhely, ahol a szerzetesek kézzel másolták és díszítették a könyveket. A tudás terjesztésének legfontosabb helyszíne.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Szabad királyi város</div>
+        <div class="glossary-def">Közvetlenül a királynak alárendelt város, nem valamely nemes fennhatósága alatt. Nagyobb önkormányzattal és kereskedelmi jogokkal bírt.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Cervisia</div>
+        <div class="glossary-def">Latin elnevezés a kolostorok által főzött, alacsony alkoholtartalmú sörre, amely alapvető tápláléknak és ivóvíz-helyettesítőnek számított.</div>
+      </div>
+    </div>
+
+    <div class="ornamental-divider reveal">✦ ✦ ✦</div>
+
+    <!-- Seal SVG -->
+    <svg class="illustration reveal" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width:180px; opacity:0.55">
+      <circle cx="100" cy="100" r="90" stroke="#c9a84c" stroke-width="1.4"/>
+      <circle cx="100" cy="100" r="80" stroke="#c9a84c" stroke-width="0.5" stroke-dasharray="3,5"/>
+      <path d="M100 28 L111 66 L151 66 L119 88 L131 126 L100 104 L69 126 L81 88 L49 66 L89 66 Z"
+            fill="rgba(201,168,76,0.18)" stroke="#c9a84c" stroke-width="1"/>
+      <circle cx="100" cy="100" r="30" stroke="#8b6914" stroke-width="0.6" fill="rgba(201,168,76,0.06)"/>
+      <text x="100" y="162" text-anchor="middle" fill="#8b6914" font-family="Cinzel, serif" font-size="8.5" letter-spacing="4">ANNO DOMINI</text>
+      <text x="100" y="48" text-anchor="middle" fill="#8b6914" font-family="Cinzel, serif" font-size="8.5" letter-spacing="3">· MCCCL ·</text>
+    </svg>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p><span>Túlélőkalauz a Középkorba</span> &nbsp;✦&nbsp; Kr. u. 1000–1400</p>
+    <p style="margin-top:0.5rem; opacity:0.45;">Iskolai projekt &nbsp;·&nbsp; 2026</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => revealObserver.observe(el));
+
+  // Sticky nav on scroll
+  const topNav = document.getElementById('topNav');
+  window.addEventListener('scroll', () => {
+    topNav.classList.toggle('visible', window.scrollY > 450);
+  }, { passive: true });
+
+  // Reading progress bar
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const st = document.documentElement.scrollTop;
+    const sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    bar.style.width = (st / sh * 100) + '%';
+  }, { passive: true });
+
+  // Consequence accordion
+  function toggleConsequence(ruleEl) {
+    const body = ruleEl.nextElementSibling;
+    const isOpen = body.classList.contains('open');
+    document.querySelectorAll('.consequence-body').forEach(b => b.classList.remove('open'));
+    if (!isOpen) body.classList.add('open');
+  }
+</script>
+</body>
+</html>
